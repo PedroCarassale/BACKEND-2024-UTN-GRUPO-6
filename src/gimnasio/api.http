@@ -1,0 +1,29 @@
+### Recuperar todos los Gimnasios.
+GET http://localhost:3000/gimnasios
+
+### Recuperar un Gimnasio por id.
+GET http://localhost:3000/gimnasios/1
+
+### Recuperar todas las movies por genero, en este caso se usa así porque genero solo lo utilizo como filtro.
+GET http://localhost:3000/movies?genre=Action
+
+### Crear un Gimnasio
+POST http://localhost:3000/gimnasios
+Content-Type: application/json
+
+{
+    "nombre" : "Sport Club",
+    "direccion" : "1 y 57",
+    "ciudad" : "La Plata",
+    "telefono" : "2216492314",
+    "precio_membresia" :23000
+  }
+
+### Actualizar un Gimnasio
+PATCH http://localhost:3000/movies/8764d6b5-7a74-11ef-98a1-0a0027000013
+Content-Type: application/json
+
+{
+    "year": 2024,
+    "title": "Prueba Modificar"
+}

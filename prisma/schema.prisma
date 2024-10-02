@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model gimnasio {
+  id               Int       @id @default(autoincrement())
+  nombre           String    @db.VarChar(100)
+  direccion        String    @db.VarChar(255)
+  ciudad           String    @db.VarChar(100)
+  telefono         String?   @db.VarChar(20)
+  precio_membresia Decimal?  @db.Decimal(10, 2)
+  fecha_creacion   DateTime? @default(now()) @db.DateTime(0)
+  imagen_url       String?   @db.VarChar(255)
+  miembro          miembro[]
+}
+
+model miembro {
+  usuario_id      Int
+  gimnasio_id     Int
+  fecha_membresia DateTime? @default(now()) @db.DateTime(0)
+  usuario         usuario   @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "miembro_ibfk_1")
+  gimnasio        gimnasio  @relation(fields: [gimnasio_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "miembro_ibfk_2")
+
+  @@id([usuario_id, gimnasio_id])
+  @@index([gimnasio_id], map: "gimnasio_id")
+}
+
+model usuario {
+  id             Int       @id @default(autoincrement())
+  nombre         String    @db.VarChar(100)
+  email          String    @unique(map: "email") @db.VarChar(100)
+  contrase_a     String    @map("contraseña") @db.VarChar(255)
+  fecha_creacion DateTime? @default(now()) @db.DateTime(0)
+  miembro        miembro[]
+}
