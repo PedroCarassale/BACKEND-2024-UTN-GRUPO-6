@@ -2,28 +2,46 @@
 GET http://localhost:3000/gimnasios
 
 ### Recuperar un Gimnasio por id.
-GET http://localhost:3000/gimnasios/1
+GET http://localhost:3000/gimnasios/2
 
-### Recuperar todas las movies por genero, en este caso se usa así porque genero solo lo utilizo como filtro.
-GET http://localhost:3000/movies?genre=Action
+### Recuperar todos los gimnasios de la ciudad de La Plata.
+GET http://localhost:3000/movies?ciudad=La%Plata
 
 ### Crear un Gimnasio
 POST http://localhost:3000/gimnasios
 Content-Type: application/json
 
 {
-    "nombre" : "Sport Club",
-    "direccion" : "1 y 57",
+    "nombre" : "Prueba Validacion",
+    "direccion" : "13 entre 55 y 56",
     "ciudad" : "La Plata",
-    "telefono" : "2216492314",
-    "precio_membresia" :23000
+    "telefono" : "2216492914",
+    "precio_membresia" :20000,
+    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipMeXhFOh6-J6FgGJ-dRbkVqHzOTVkQwZRT9HlbI=s1360-w1360-h1020"
   }
 
 ### Actualizar un Gimnasio
-PATCH http://localhost:3000/movies/8764d6b5-7a74-11ef-98a1-0a0027000013
+PUT http://localhost:3000/gimnasios/2
 Content-Type: application/json
 
 {
-    "year": 2024,
-    "title": "Prueba Modificar"
+    "nombre" : "Box Cntral",
+    "direccion" : "13 entre 55 y 56",
+    "ciudad" : "La Plata",
+    "telefono" : "2216492914",
+    "precio_membresia" :20000,
+    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipMeXhFOh6-J6FgGJ-dRbkVqHzOTVkQwZRT9HlbI=s1360-w1360-h1020"
+  }
+
+
+### Actualizar un Gimnasio parcialmente (solo algunas propiedades)
+PATCH http://localhost:3000/gimnasios/2
+Content-Type: application/json
+
+{
+    "nombre" : "Prueba Parcial"
+    
 }
+
+### Eliminar un gimnasio.
+DELETE http://localhost:3000/gimnasios/2

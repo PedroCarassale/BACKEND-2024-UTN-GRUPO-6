@@ -1,18 +1,24 @@
-import {IsDecimal, IsNumber, IsString, MinLength, minLength} from "class-validator"
+import {IsDecimal, IsNumber, IsString, IsNotEmpty, IsOptional} from "class-validator"
 export class updateGimnasioDto {
+    
     @IsString()
-    @MinLength(1)
-    nombre? : string // El ? hace que la actualizacion de la propiedad sea OPCIONAL.  
+    @IsOptional()
+    nombre?: string // El ? hace que la actualizacion de la propiedad sea OPCIONAL. 
     @IsString()
-    @MinLength(1)
-    direccion? : string
+    @IsOptional()
+    direccion?: string
     @IsString()
-    @MinLength(1)
+    @IsOptional()
     ciudad? : string
     @IsString()
-    @MinLength(1)
-    telefono? : string
+    @IsOptional()
+    telefono?: string
     @IsNumber()
+    @IsOptional()
     precio_membresia? :number
+    @IsString()
+    @IsOptional()
+    imagen_url? : string
+
 
 }
