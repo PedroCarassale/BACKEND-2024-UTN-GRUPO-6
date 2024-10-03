@@ -4,8 +4,6 @@ GET http://localhost:3000/gimnasios
 ### Recuperar un Gimnasio por id.
 GET http://localhost:3000/gimnasios/2
 
-### Recuperar todos los gimnasios de la ciudad de La Plata.
-GET http://localhost:3000/movies?ciudad=La%Plata
 
 ### Crear un Gimnasio
 POST http://localhost:3000/gimnasios
@@ -35,11 +33,11 @@ Content-Type: application/json
 
 
 ### Actualizar un Gimnasio parcialmente (solo algunas propiedades)
-PATCH http://localhost:3000/gimnasios/2
+PATCH http://localhost:3000/gimnasios/3
 Content-Type: application/json
 
 {
-    "nombre" : "Prueba Parcial"
+    "nombre" : "Box Cntral"
     
 }
 
