@@ -45,6 +45,7 @@ export class GimnasioService {
 
     async createGimnasio(gimnasio:createGimnasioDto){
         try {
+            
             const nuevoGimnasio = await this.prisma.gimnasio.create({
                 data: gimnasio,
               });
