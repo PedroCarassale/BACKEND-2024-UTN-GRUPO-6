@@ -1,0 +1,41 @@
+### Recuperar todos los usuarios
+GET http://localhost:3000/usuarios
+
+### Recuperar un usuario por DNI.
+GET http://localhost:3000/usuarios/40226068
+
+
+### Crear un Usuario.
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+    "nombre" : "Bernardo Ramirez",
+    "dni": "92981743",
+    "email" : "bernardoramirezok@gmail.com",
+    "clave" : "123456"
+  }
+
+### Actualizar un Usuario mediante el DNI.
+PUT http://localhost:3000/usuarios/40226068
+Content-Type: application/json
+
+{
+    "nombre" : "Rodrigo vgfdgfd Ramirez",
+    "dni": "40226068",
+    "email" : "rodrigoramirezok@gmail.com",
+    "clave" : "123456"
+  }
+
+
+### Actualizar un Usuario Parcialmente (solo algunas propiedades)
+PATCH http://localhost:3000/usuarios/40226068
+Content-Type: application/json
+
+{
+    
+    "nombre" : "Ramirez Rodrigo"
+}
+
+### Eliminar un usuario por DNI.
+DELETE http://localhost:3000/usuarios/92981743

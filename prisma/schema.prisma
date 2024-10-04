@@ -33,8 +33,9 @@ model miembro {
 model usuario {
   id             Int       @id @default(autoincrement())
   nombre         String    @db.VarChar(100)
+  dni            String    @unique @db.VarChar(8) 
   email          String    @unique(map: "email") @db.VarChar(100)
-  contrase_a     String    @map("contraseña") @db.VarChar(255)
+  clave          String    @map("clave") @db.VarChar(255)
   fecha_creacion DateTime? @default(now()) @db.DateTime(0)
   miembro        miembro[]
 }
