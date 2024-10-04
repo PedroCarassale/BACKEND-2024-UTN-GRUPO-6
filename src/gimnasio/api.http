@@ -10,12 +10,12 @@ POST http://localhost:3000/gimnasios
 Content-Type: application/json
 
 {
-    "nombre" : "Prueba Validacion",
-    "direccion" : "13 entre 55 y 56",
+    "nombre" : "Megatlon",
+    "direccion" : "Cam. Parque Centenario 4000",
     "ciudad" : "La Plata",
-    "telefono" : "2216492914",
-    "precio_membresia" :20000,
-    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipMeXhFOh6-J6FgGJ-dRbkVqHzOTVkQwZRT9HlbI=s1360-w1360-h1020"
+    "telefono" : "2216492814",
+    "precio_membresia" :30000,
+    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipOldGVtceC5P5QlURGtiz84v8FHfhcVNuvnxeRR=s1360-w1360-h1020"
   }
 
 ### Actualizar un Gimnasio
@@ -28,16 +28,16 @@ Content-Type: application/json
     "ciudad" : "La Plata",
     "telefono" : "2216492914",
     "precio_membresia" :20000,
-    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipMeXhFOh6-J6FgGJ-dRbkVqHzOTVkQwZRT9HlbI=s1360-w1360-h1020"
+    "imagen_url" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXgCo51vMyCSPeLVznzlSQEF-ZA4Cw4NsOHg&s"
   }
 
 
 ### Actualizar un Gimnasio parcialmente (solo algunas propiedades)
-PATCH http://localhost:3000/gimnasios/3
+PATCH http://localhost:3000/gimnasios/4
 Content-Type: application/json
 
-{
-    "nombre" : "Box Cntral"
+{   "nombre": "Skay Gym",
+    "imagen_url" : "https://ocioenlaplataygba.com.ar/wp-content/uploads/2024/04/AF1QipNbbDbr20-TLHDZW1bhLgpIGjmQWWsqbcBvTFS1w408-h278-k-no"
     
 }
 

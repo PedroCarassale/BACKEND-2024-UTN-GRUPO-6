@@ -62,7 +62,7 @@ CREATE TABLE `gimnasio` (
   `fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
   `imagen_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +71,7 @@ CREATE TABLE `gimnasio` (
 
 LOCK TABLES `gimnasio` WRITE;
 /*!40000 ALTER TABLE `gimnasio` DISABLE KEYS */;
+INSERT INTO `gimnasio` VALUES (1,'Box','13 entre 55 y 56','La Plata','2216492914',20000.00,'2024-10-04 01:19:54','https://lh3.googleusercontent.com/p/AF1QipMeXhFOh6-J6FgGJ-dRbkVqHzOTVkQwZRT9HlbI=s1360-w1360-h1020'),(3,'Sport Club','1 y 57','La Plata','22164929154',23000.00,'2024-10-04 01:50:36','https://infodeportes.com.ar/wp-content/uploads/2022/08/La-cadena-de-gimnasios-Sport-Club-abrio-su-segunda-sede-en-Cordoba.png'),(4,'Skay Gym','7 y 62','La Plata','2216492814',20000.00,'2024-10-04 13:07:49','https://ocioenlaplataygba.com.ar/wp-content/uploads/2024/04/AF1QipNbbDbr20-TLHDZW1bhLgpIGjmQWWsqbcBvTFS1w408-h278-k-no'),(5,'On Fit','46 entre 4 y 5','La Plata','2216492814',25000.00,'2024-10-04 13:12:16','https://onfit.com.ar/images/sede/laplata.jpg'),(6,'Bolt','1 y 60','La Plata','2216492814',26000.00,'2024-10-04 13:17:15','https://lh3.googleusercontent.com/p/AF1QipOldGVtceC5P5QlURGtiz84v8FHfhcVNuvnxeRR=s1360-w1360-h1020'),(7,'Megatlon','Cam. Parque Centenario 4000','La Plata','2216492814',30000.00,'2024-10-04 13:27:38','https://lh3.googleusercontent.com/p/AF1QipOldGVtceC5P5QlURGtiz84v8FHfhcVNuvnxeRR=s1360-w1360-h1020');
 /*!40000 ALTER TABLE `gimnasio` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +99,7 @@ CREATE TABLE `miembro` (
 
 LOCK TABLES `miembro` WRITE;
 /*!40000 ALTER TABLE `miembro` DISABLE KEYS */;
+INSERT INTO `miembro` VALUES (1,1,'2024-10-04 11:38:12'),(1,3,'2024-10-04 11:46:21');
 /*!40000 ALTER TABLE `miembro` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +119,7 @@ CREATE TABLE `usuario` (
   `fecha_creacion` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,4 +141,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-03 18:05:16
+-- Dump completed on 2024-10-04 10:41:28

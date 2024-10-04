@@ -1,0 +1,14 @@
+### Incribir Usuario a un Gimnasio
+POST http://localhost:3000/miembro
+Content-Type: application/json
+
+{
+    "usuario_id" : "1",
+    "gimnasio_id": "3" 
+}
+
+### Obtener los gimnasios a los que está incripto un usuario.
+GET http://localhost:3000/miembro/gimnasios/1
+
+### Obtener los gimnasios disponibles para un usuario. (A los que no esta inscripto)
+GET http://localhost:3000/miembro/gimnasios/disponibles/1
