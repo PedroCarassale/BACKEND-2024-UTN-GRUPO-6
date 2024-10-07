@@ -36,8 +36,7 @@ Content-Type: application/json
 PATCH http://localhost:3000/gimnasios/4
 Content-Type: application/json
 
-{   "nombre": "Skay Gym",
-    "imagen_url" : "https://ocioenlaplataygba.com.ar/wp-content/uploads/2024/04/AF1QipNbbDbr20-TLHDZW1bhLgpIGjmQWWsqbcBvTFS1w408-h278-k-no"
+{   "nombre": "Skay Gym"
     
 }
 

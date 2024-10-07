@@ -9,5 +9,6 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe()) // Declarandolo aqui me evito estar repitiendo siempre la misma linea de codigo y me aseguro que todas las rutas tengan validaciones, siempre y cuando tengan un DTO.
   app.useGlobalFilters(new HttpExceptionFilter());
   await app.listen(3000);
+  app.enableCors();
 }
 bootstrap();
