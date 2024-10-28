@@ -1,0 +1,34 @@
+### Obtener todos los ejercicios
+GET http://localhost:3000/ejercicios
+
+### Obtener ejercicio por id
+GET http://localhost:3000/ejercicios/3
+
+### Crear un ejercicio
+POST http://localhost:3000/ejercicios
+Content-Type: application/json
+
+{
+    "nombre" : "Dominadas boca arriba",
+    "descripcion": "Tire de la barra hacia su torso hasta que sus manos estén al lado de sus costillas mientras exhala. Vuelva a la posición inicial con un movimiento suave mientras inhala.",
+    "imagen_url":"https://www.entrenamientos.com/media/cache/exercise_375/uploads/exercise/dominadas-boca-arriba-agarre-supino-init-pos-1454.png"
+}   
+
+
+### Eliminar un ejercicio.
+DELETE http://localhost:3000/ejercicios/3
+
+
+### Actualizar un ejercicio.
+PUT http://localhost:3000/ejercicios/5
+Content-Type: application/json
+
+{
+    "nombre" : "Peso Muerto"
+  
+}
+
+
+
+
+

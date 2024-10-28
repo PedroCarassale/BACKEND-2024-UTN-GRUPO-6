@@ -1,3 +1,4 @@
+import { Decimal } from "@prisma/client/runtime/library";
 import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateMiembroDto {
@@ -7,6 +8,16 @@ export class CreateMiembroDto {
     @IsNotEmpty()
     gimnasio_id: number;  
 
-    @IsOptional()  // Este campo es opcional, ya que tiene un valor por defecto
-    fecha_membresia?: Date;  // Si no se proporciona, se asignará la fecha actual por defecto
+    @IsNotEmpty()
+    fecha_inicio: Date; 
+    
+    @IsNotEmpty()
+    fecha_fin: Date; 
+
+    @IsNotEmpty()
+    precio: Decimal;
+    
+    @IsNotEmpty()
+    estado_membresia_id: number;
+    
 }

@@ -11,17 +11,19 @@ export class createGimnasioDto {
     @IsString()
     @IsNotEmpty()
     direccion : string
-    @IsString()
     @IsNotEmpty()
-    ciudad : string
+    ciudad_id : number
     @IsString()
     @IsOptional()
     telefono: string
-    @IsNumber()
-    @IsOptional()
-    precio_membresia :number
     @IsString()
     @IsOptional()
     imagen_url : string
+    @IsNotEmpty()
+    id_due_o : number
+    @IsString()
+    @IsOptional()
+    descripcion : string
+
 
 }

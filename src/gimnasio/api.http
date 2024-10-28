@@ -2,20 +2,23 @@
 GET http://localhost:3000/gimnasios
 
 ### Recuperar un Gimnasio por id.
-GET http://localhost:3000/gimnasios/2
+GET http://localhost:3000/gimnasios/1
+
+### Obtener todos las rutinas de un gimnasio por id
+GET http://localhost:3000/gimnasios/1/rutinas
 
 
 ### Crear un Gimnasio
-POST http://localhost:3000/gimnasios
+POST http://localhost:3000/gimnasios 
 Content-Type: application/json
 
-{
-    "nombre" : "Megatlon",
-    "direccion" : "Cam. Parque Centenario 4000",
-    "ciudad" : "La Plata",
-    "telefono" : "2216492814",
-    "precio_membresia" :30000,
-    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipOldGVtceC5P5QlURGtiz84v8FHfhcVNuvnxeRR=s1360-w1360-h1020"
+{   "id_due_o" : 2,
+    "nombre" : "Kualia",
+    "direccion" : "Calle 80 entre 120 y 121",
+    "ciudad_id" : 1,
+    "telefono" : "2216445544",
+    "imagen_url" : "https://lh3.googleusercontent.com/p/AF1QipOU9V54R6EB8_G6xxtvAzFLy2lSW3afRXUhVrnE=s680-w680-h510",
+    "descripcion": "3 Pisos"
   }
 
 ### Actualizar un Gimnasio
@@ -29,7 +32,7 @@ Content-Type: application/json
     "telefono" : "2216492914",
     "precio_membresia" :20000,
     "imagen_url" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXgCo51vMyCSPeLVznzlSQEF-ZA4Cw4NsOHg&s"
-  }
+}
 
 
 ### Actualizar un Gimnasio parcialmente (solo algunas propiedades)

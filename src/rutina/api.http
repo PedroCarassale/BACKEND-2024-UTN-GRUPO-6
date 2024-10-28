@@ -1,0 +1,46 @@
+### Obtener todas las rutinas
+GET http://localhost:3000/rutinas
+
+### Obtener rutina por id
+GET http://localhost:3000/rutinas/1
+
+### Obtener todos los ejercicios de una rutina por id
+GET http://localhost:3000/rutinas/3/ejercicios
+
+### Crear una rutina
+POST http://localhost:3000/rutinas
+Content-Type: application/json
+
+{
+  "nombre": "Rutina de Fuerza",
+  "imagen_url": "https://www.antiaginggroupbarcelona.com/wp-content/uploads/2023/02/implante-pectorales-agb-1.png",
+  "descanso_entre_ejercicios": 60,
+  "gimnasio_id": 1,
+  "ejercicios": [
+    {
+      "ejercicio_id": 4,
+      "descanso_entre_series": 30,
+      "intensidad": "Moderada",
+      "seriesxrepeticiones": "4x10"
+    },
+    {
+      "ejercicio_id": 6,
+      "descanso_entre_series": 45,
+      "intensidad": "Moderada",
+      "seriesxrepeticiones": "4x10"
+    }
+  ]
+}   
+
+
+### Eliminar una rutina.
+DELETE http://localhost:3000/rutinas/1
+
+
+### Actualizar una rutina.
+
+
+
+
+
+

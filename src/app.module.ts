@@ -9,10 +9,19 @@ import { UsuarioService } from './usuario/usuario.service';
 import { MiembroModule } from './miembro/miembro.module';
 import { MiembroService } from './miembro/miembro.service';
 import { MiembroController } from './miembro/miembro.controller';
+import { EjercicioModule } from './ejercicio/ejercicio.module';
+import { RutinaModule } from './rutina/rutina.module';
+import { EjercicioRutinaModule } from './ejercicio_rutina/ejercicio_rutina.module';
+import { RutinaService } from './rutina/rutina.service';
+import { EjercicioRutinaService } from './ejercicio_rutina/ejercicio_rutina.service';
+import { RutinaController } from './rutina/rutina.controller';
+import { EjercicioRutinaController } from './ejercicio_rutina/ejercicio_rutina.controller';
+
 
 @Module({
-  imports: [GimnasioModule, UsuarioModule, MiembroModule],
-  controllers: [GimnasioController, UsuarioController, MiembroController],
-  providers: [GimnasioService, UsuarioService, MiembroService,PrismaService],
+  imports: [GimnasioModule,UsuarioModule, MiembroModule, EjercicioModule, RutinaModule, EjercicioRutinaModule],
+  controllers: [GimnasioController, UsuarioController, MiembroController, RutinaController, EjercicioRutinaController],
+  providers: [GimnasioService, UsuarioService, MiembroService,PrismaService, RutinaService, EjercicioRutinaService],
+  
 })
 export class AppModule {}

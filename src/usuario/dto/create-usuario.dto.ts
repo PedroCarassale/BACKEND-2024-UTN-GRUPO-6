@@ -6,6 +6,17 @@ export class CreateUsuarioDto {
     @IsNotEmpty()
     nombre: string;
 
+    @IsNotEmpty()
+    rol_id: number;  
+
+    @IsString()
+    @IsNotEmpty()
+    apellido: string;
+
+    @IsString()
+    @IsNotEmpty()
+    nombre_usuario: string;
+
     @IsString()
     @IsNotEmpty()
     @Length(8, 8, { message: 'El DNI debe tener exactamente 8 dígitos.' })
@@ -13,7 +24,7 @@ export class CreateUsuarioDto {
     dni: string;
 
     @IsEmail({}, { message: 'El email debe ser válido.' })
-    email: string;
+    correo: string;
 
     @IsString()
     @IsNotEmpty()

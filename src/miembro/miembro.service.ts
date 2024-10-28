@@ -48,24 +48,16 @@ export class MiembroService {
               throw new NotFoundException(`Gimnasio con ID ${gimnasio_id} no encontrado`);
           }
 
-          // Verificar si el usuario ya está inscrito en el gimnasio
-          const miembroExistente = await this.prisma.miembro.findUnique({
-            where: {
-                usuario_id_gimnasio_id: {
-                    usuario_id: usuarioIdInt,
-                    gimnasio_id: gimnasioIdInt,
-                },
-            },});
-
-            if (miembroExistente) {
-              throw new ConflictException(`El usuario ya está inscrito en el gimnasio`);
-          }
 
           // Si todos los chequeos pasan, creo el registro en la tabla miembro.
-          const nuevoMiembro = await this.prisma.miembro.create({
+          const nuevoMiembro = await this.prisma.membresia.create({
               data: {
                  usuario_id : usuarioIdInt,
                  gimnasio_id: gimnasioIdInt,
+                 fecha_inicio: createMiembroDto.fecha_inicio,
+                 fecha_fin: createMiembroDto.fecha_fin,
+                 precio: createMiembroDto.precio,
+                 estado_membresia_id: createMiembroDto.estado_membresia_id
               },
           });
 
@@ -97,7 +89,7 @@ export class MiembroService {
 
       await this.validateUser(id);
 
-      const gimnasios = await this.prisma.miembro.findMany({
+      const gimnasios = await this.prisma.membresia.findMany({
         where: {
           usuario_id: Number(id),  // Filtrar por el ID del usuario
         },
@@ -131,7 +123,7 @@ export class MiembroService {
       await this.validateUser(id);
   
       // Obtener gimnasios a los que el usuario está inscrito
-      const gimnasiosInscritos = await this.prisma.miembro.findMany({
+      const gimnasiosInscritos = await this.prisma.membresia.findMany({
         where: { usuario_id: Number(id) },
         select: { gimnasio_id: true }, // Solo necesito el id del gimnasio
       });
