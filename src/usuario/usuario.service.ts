@@ -7,10 +7,24 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
+
+  // IMPORTANTE: Para el login el que utiliza el UsuarioService es el auth y NO el UsuarioController.
   
   constructor(private prisma: PrismaService) {
   }
   
+  async buscarPorCorreo(correo: string){
+    try {
+      const usuario = await this.prisma.usuario.findUnique({where: {correo: correo,},});
+      return usuario;
+      
+    } catch (error) {
+
+      throw new BadRequestException('El correo proporcionado no es correcto');
+      
+    }
+  }
+
   async validateEmail(correo: string): Promise<boolean> {
     try {
       const user = await this.prisma.usuario.findUnique({

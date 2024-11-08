@@ -16,10 +16,11 @@ import { RutinaService } from './rutina/rutina.service';
 import { EjercicioRutinaService } from './ejercicio_rutina/ejercicio_rutina.service';
 import { RutinaController } from './rutina/rutina.controller';
 import { EjercicioRutinaController } from './ejercicio_rutina/ejercicio_rutina.controller';
+import { AuthModule } from './auth/auth.module';
 
 
 @Module({
-  imports: [GimnasioModule,UsuarioModule, MiembroModule, EjercicioModule, RutinaModule, EjercicioRutinaModule],
+  imports: [GimnasioModule,UsuarioModule, MiembroModule, EjercicioModule, RutinaModule, EjercicioRutinaModule, AuthModule],
   controllers: [GimnasioController, UsuarioController, MiembroController, RutinaController, EjercicioRutinaController],
   providers: [GimnasioService, UsuarioService, MiembroService,PrismaService, RutinaService, EjercicioRutinaService],
   

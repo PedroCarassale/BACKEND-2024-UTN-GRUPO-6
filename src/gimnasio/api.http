@@ -27,10 +27,10 @@ Content-Type: application/json
 
 {
     "nombre" : "Sport Club",
+    "id_due_o" : 2,
+    "ciudad_id" : 1,
     "direccion" : "Calle 54 620",
-    "ciudad" : "La Plata",
     "telefono" : "2216454354",
-    "precio_membresia" :28000,
     "imagen_url" : "https://www.baenegocios.com/img/2020/08/18/sportclubapertura.jpg?__scale=c:transparent,w:745,h:558,t:3"
 }
 
