@@ -10,11 +10,14 @@ POST http://localhost:3000/usuarios
 Content-Type: application/json
 
 {
-    "nombre" : "Bernardo Ramirez",
-    "dni": "92981743",
-    "email" : "bernardoramirezok@gmail.com",
-    "clave" : "123456"
-  }
+    "nombre" : "Nahuel",
+    "apellido": "Iroz",
+    "nombre_usuario":"nahuiroz",
+    "dni": "12345678",
+    "correo" : "nahueliroz@gmail.com",
+    "clave" : "123456",
+    "rol_id": 1
+}
 
 ### Actualizar un Usuario mediante el DNI.
 PUT http://localhost:3000/usuarios/40226068
@@ -29,13 +32,13 @@ Content-Type: application/json
 
 
 ### Actualizar un Usuario Parcialmente (solo algunas propiedades)
-PATCH http://localhost:3000/usuarios/40226068
+PATCH http://localhost:3000/usuarios/12345678
 Content-Type: application/json
 
 {
     
-    "nombre" : "Ramirez Rodrigo"
+    "nombre" : "Pedro"
 }
 
 ### Eliminar un usuario por DNI.
-DELETE http://localhost:3000/usuarios/92981743
+DELETE http://localhost:3000/usuarios/12345678

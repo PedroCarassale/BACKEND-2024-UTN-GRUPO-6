@@ -1,24 +1,25 @@
 import {IsDecimal, IsNumber, IsString, IsNotEmpty, IsOptional} from "class-validator"
 export class updateGimnasioDto {
-    
+
+    @IsString()
+    @IsNotEmpty()
+    nombre : string
+    @IsString()
+    @IsNotEmpty()
+    direccion : string
+    @IsNotEmpty()
+    ciudad_id : number
     @IsString()
     @IsOptional()
-    nombre?: string // El ? hace que la actualizacion de la propiedad sea OPCIONAL. 
+    telefono: string
     @IsString()
     @IsOptional()
-    direccion?: string
+    imagen_url : string
+    @IsNotEmpty()
+    id_due_o : number
     @IsString()
     @IsOptional()
-    ciudad? : string
-    @IsString()
-    @IsOptional()
-    telefono?: string
-    @IsNumber()
-    @IsOptional()
-    precio_membresia? :number
-    @IsString()
-    @IsOptional()
-    imagen_url? : string
+    descripcion : string
 
 
 }

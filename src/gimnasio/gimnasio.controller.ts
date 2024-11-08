@@ -54,4 +54,10 @@ export class GimnasioController {
         return this.gimnasioService.deleteGimnasio(id);
     }
 
+        // Devuelve un todas las rutinas de un gimnasio.
+        @Get(':id/rutinas')
+        async getRutinasDeGimnasioById(@Param("id") id) {
+            return await this.gimnasioService.getRutinasDeGimnasioById(id);
+        }
+
 }

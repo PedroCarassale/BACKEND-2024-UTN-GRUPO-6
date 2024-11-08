@@ -7,13 +7,28 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuarioService {
+
+  // IMPORTANTE: Para el login el que utiliza el UsuarioService es el auth y NO el UsuarioController.
+  
   constructor(private prisma: PrismaService) {
   }
+  
+  async buscarPorCorreo(correo: string){
+    try {
+      const usuario = await this.prisma.usuario.findUnique({where: {correo: correo,},});
+      return usuario;
+      
+    } catch (error) {
 
-  async validateEmail(email: string): Promise<boolean> {
+      throw new BadRequestException('El correo proporcionado no es correcto');
+      
+    }
+  }
+
+  async validateEmail(correo: string): Promise<boolean> {
     try {
       const user = await this.prisma.usuario.findUnique({
-        where: { email },
+        where: { correo },
       });
       
       // Devuelve true si no existe el mail en la BD, pero si existe devuelve false
@@ -41,7 +56,7 @@ export class UsuarioService {
   async createUsuario(createUsuarioDto: CreateUsuarioDto) {
     try {
       // Validar si el email ya existe
-      const isEmailValid = await this.validateEmail(createUsuarioDto.email);
+      const isEmailValid = await this.validateEmail(createUsuarioDto.correo);
       const isDniValid = await this.validateDni(createUsuarioDto.dni);
   
       if (!isEmailValid) {
@@ -59,7 +74,7 @@ export class UsuarioService {
       const nuevoUsuario = await this.prisma.usuario.create({
         data: {
           ...createUsuarioDto,
-          clave: hashedPassword,  // Sobreescribir la clave con la clave hasheada
+          clave: hashedPassword,
         },
       });
   
@@ -111,8 +126,8 @@ export class UsuarioService {
       }
   
       // Validar el email solo si está presente en el DTO y es diferente del actual
-      if (updateUsuarioDto.email && updateUsuarioDto.email !== usuarioExistente.email) {
-        const isEmailValid = await this.validateEmail(updateUsuarioDto.email);
+      if (updateUsuarioDto.correo && updateUsuarioDto.correo !== usuarioExistente.correo) {
+        const isEmailValid = await this.validateEmail(updateUsuarioDto.correo);
         if (!isEmailValid) {
           throw new ConflictException('El email ingresado ya se encuentra registrado.');
         }
@@ -128,8 +143,8 @@ export class UsuarioService {
   
       // Si es una actualización completa (PUT), asegurarse de que todos los campos estén presentes
       if (!isPatch) {
-        const { nombre, dni, email, clave } = updateUsuarioDto;
-        if (!nombre || !dni || !email || !clave) {
+        const { nombre, dni, correo, clave } = updateUsuarioDto;
+        if (!nombre || !dni || !correo || !clave) {
           throw new BadRequestException('Los campos nombre, dni, email y clave son obligatorios.');
         }
       }
@@ -139,7 +154,7 @@ export class UsuarioService {
   
       if (updateUsuarioDto.nombre) datosActualizados.nombre = updateUsuarioDto.nombre;
       if (updateUsuarioDto.dni) datosActualizados.dni = updateUsuarioDto.dni;
-      if (updateUsuarioDto.email) datosActualizados.email = updateUsuarioDto.email;
+      if (updateUsuarioDto.correo) datosActualizados.email = updateUsuarioDto.correo;
       if (updateUsuarioDto.clave) datosActualizados.clave = await bcrypt.hash(updateUsuarioDto.clave, 10);  // Hashear la clave si se proporciona
   
       // Realizar la actualización

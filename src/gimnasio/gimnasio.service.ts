@@ -43,6 +43,29 @@ export class GimnasioService {
         
     }
 
+    async getRutinasDeGimnasioById(id){
+
+        try {
+
+            if (isNaN(Number(id))) {
+                throw new BadRequestException('El ID proporcionado no es válido'); // Valido el id.
+              }
+
+              const rutinas = this.prisma.rutina.findMany({where: {gimnasio_id:Number(id),},}) // Busco en la BD.
+            
+            if (!rutinas) {
+                throw new NotFoundException('Gimnasio no encontrado'); // Si no encuentra muestro un mensaje de error.
+              }
+
+            return rutinas;// Si lo encuentro retorno el objeto.
+               
+        } catch (error) {
+            console.error('Error en el servicio:', error.message);
+            throw error;
+        }
+        
+    }
+
     async createGimnasio(gimnasio:createGimnasioDto){
         try {
             
@@ -71,8 +94,8 @@ export class GimnasioService {
               }
 
               if (!isPatch) {
-                const { nombre, direccion, ciudad } = gimnasio;
-                if (!nombre || !direccion || !ciudad) {
+                const { nombre, direccion, ciudad_id } = gimnasio;
+                if (!nombre || !direccion || !ciudad_id) {
                     throw new BadRequestException('Los campos nombre, direccion y ciudad son obligatorios.');
                 }
             }

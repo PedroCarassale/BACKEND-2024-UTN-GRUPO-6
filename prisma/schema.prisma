@@ -8,34 +8,134 @@ datasource db {
 }
 
 model gimnasio {
-  id               Int       @id @default(autoincrement())
-  nombre           String    @db.VarChar(100)
-  direccion        String    @db.VarChar(255)
-  ciudad           String    @db.VarChar(100)
-  telefono         String?   @db.VarChar(20)
-  precio_membresia Decimal?  @db.Decimal(10, 2)
-  fecha_creacion   DateTime? @default(now()) @db.DateTime(0)
-  imagen_url       String?   @db.VarChar(255)
-  miembro          miembro[]
-}
+  id                Int                 @id @default(autoincrement())
+  nombre            String              @db.VarChar(100)
+  direccion         String              @db.VarChar(255)
+  telefono          String?             @db.VarChar(15)
+  descripcion       String?             @db.Text
+  imagen_url        String?             @db.VarChar(255)
+  ciudad_id         Int?
+  id_due_o          Int?                @map("id_dueño")
+ rutina     rutina[]
+  usuario           usuario?            @relation(fields: [id_due_o], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "fk_dueño")
+  ciudad            ciudad?             @relation(fields: [ciudad_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "gimnasio_ibfk_1")
+  membresia         membresia[]
+  rese_a            rese_a[]
 
-model miembro {
-  usuario_id      Int
-  gimnasio_id     Int
-  fecha_membresia DateTime? @default(now()) @db.DateTime(0)
-  usuario         usuario   @relation(fields: [usuario_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "miembro_ibfk_1")
-  gimnasio        gimnasio  @relation(fields: [gimnasio_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "miembro_ibfk_2")
-
-  @@id([usuario_id, gimnasio_id])
-  @@index([gimnasio_id], map: "gimnasio_id")
+  @@index([ciudad_id], map: "ciudad_id")
+  @@index([id_due_o], map: "fk_dueño")
 }
 
 model usuario {
-  id             Int       @id @default(autoincrement())
-  nombre         String    @db.VarChar(100)
-  dni            String    @unique @db.VarChar(8) 
-  email          String    @unique(map: "email") @db.VarChar(100)
-  clave          String    @map("clave") @db.VarChar(255)
-  fecha_creacion DateTime? @default(now()) @db.DateTime(0)
-  miembro        miembro[]
+  id             Int         @id @default(autoincrement())
+  dni            String      @unique(map: "dni") @db.VarChar(8) 
+  nombre         String      @db.VarChar(100)
+  apellido       String      @db.VarChar(100)
+  nombre_usuario String      @unique(map: "nombre_usuario") @db.VarChar(100)
+  correo         String      @unique(map: "correo") @db.VarChar(255)
+  clave          String      @map("clave") @db.VarChar(255)
+  rol_id         Int?
+  gimnasio       gimnasio[]
+  membresia      membresia[]
+  rese_a         rese_a[]
+  rol            rol?        @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "usuario_ibfk_1")
+
+  @@index([rol_id], map: "rol_id")
 }
+
+model ciudad {
+  id           Int        @id @default(autoincrement())
+  nombre       String     @db.VarChar(100)
+  provincia_id Int?
+  provincia    provincia? @relation(fields: [provincia_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ciudad_ibfk_1")
+  gimnasio     gimnasio[]
+
+  @@index([provincia_id], map: "provincia_id")
+}
+
+model ejercicio {
+  id              Int               @id @default(autoincrement())
+  nombre          String            @db.VarChar(100)
+  imagen_url      String?           @db.VarChar(255)
+  descripcion     String?           @db.Text
+  ejerciciorutina ejerciciorutina[]
+}
+
+model ejerciciorutina {
+  id           Int                 @id @default(autoincrement())
+  intensidad   String?             @db.VarChar(255) // Nivel de intensidad del ejercicio, opcional si prefieres
+  descanso_entre_series Int?     // Tiempo de descanso entre series en segundos o minutos
+  series_x_repeticiones String?    @db.VarChar(255) // Ej. "4x10" para indicar 4 series de 10 repeticiones
+  rutina_id    Int?
+  ejercicio_id Int
+  rutina       rutina?             @relation(fields: [rutina_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "ejerciciorutina_ibfk_1")
+  ejercicio    ejercicio?          @relation(fields: [ejercicio_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "ejerciciorutina_ibfk_2")
+
+  @@index([ejercicio_id], map: "ejercicio_id")
+  @@index([rutina_id], map: "rutina_id")
+}
+
+model estadomembresia {
+  id        Int         @id @default(autoincrement())
+  estado    String      @db.VarChar(50)
+  membresia membresia[]
+}
+
+model membresia {
+  id                  Int              @id @default(autoincrement())
+  usuario_id          Int?
+  gimnasio_id         Int?
+  fecha_inicio        DateTime         @db.Date
+  fecha_fin           DateTime         @db.Date
+  precio              Decimal          @db.Decimal(10, 2)
+  estado_membresia_id Int?
+  usuario             usuario?         @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "membresia_ibfk_1")
+  gimnasio            gimnasio?        @relation(fields: [gimnasio_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "membresia_ibfk_2")
+  estadomembresia     estadomembresia? @relation(fields: [estado_membresia_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "membresia_ibfk_3")
+
+  @@index([estado_membresia_id], map: "estado_membresia_id")
+  @@index([gimnasio_id], map: "gimnasio_id")
+  @@index([usuario_id], map: "usuario_id")
+}
+
+model provincia {
+  id     Int      @id @default(autoincrement())
+  nombre String   @db.VarChar(100)
+  ciudad ciudad[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model rese_a {
+  id                 Int       @id @default(autoincrement())
+  id_gimnasio        Int?
+  id_usuario         Int?
+  fecha              DateTime? @default(dbgenerated("(curdate())")) @db.Date
+  comentario         String?   @db.Text
+  puntuacion_general Decimal?  @db.Decimal(2, 1)
+  gimnasio           gimnasio? @relation(fields: [id_gimnasio], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reseña_ibfk_1")
+  usuario            usuario?  @relation(fields: [id_usuario], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "reseña_ibfk_2")
+
+  @@index([id_gimnasio], map: "id_gimnasio")
+  @@index([id_usuario], map: "id_usuario")
+  @@map("reseña")
+}
+
+model rol {
+  id      Int       @id @default(autoincrement())
+  nombre  String    @db.VarChar(50)
+  usuario usuario[]
+}
+
+model rutina {
+  id                    Int                @id @default(autoincrement())
+  nombre                String             @db.VarChar(100)
+  imagen_url            String?            @db.VarChar(255)
+  descanso_entre_ejercicios Int?     // Tiempo de descanso entre series en segundos o minutos
+  gimnasio_id  Int?
+  ejerciciorutina       ejerciciorutina[]
+  gimnasio     gimnasio?  @relation(fields: [gimnasio_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "actividadgimnasio_ibfk_1")
+
+
+  @@index([gimnasio_id], map: "gimnasio_id")
+}
+
