@@ -26,9 +26,9 @@ export class MiembroService {
 
   async inscribirEnGimnasio(createMiembroDto: CreateMiembroDto) {
     try {
-          const { usuario_id, gimnasio_id }  = createMiembroDto; // ---> Obtengo los parametros del objeto.
+          const { cliente_id, gimnasio_id }  = createMiembroDto; // ---> Obtengo los parametros del objeto.
           // Convertir usuario_id y gimnasio_id a enteros si vienen como cadenas
-          const usuarioIdInt = parseInt(usuario_id as unknown as string, 10); // Si usuario_id es de tipo string
+          const usuarioIdInt = parseInt(cliente_id as unknown as string, 10); // Si usuario_id es de tipo string
           const gimnasioIdInt = parseInt(gimnasio_id as unknown as string, 10);
           // Verifico si el usuario existe
           const usuarioExistente = await this.prisma.usuario.findUnique({
@@ -36,7 +36,7 @@ export class MiembroService {
           });
 
           if (!usuarioExistente) {
-              throw new NotFoundException(`Usuario con ID ${usuario_id} no encontrado`);
+              throw new NotFoundException(`Usuario con ID ${cliente_id} no encontrado`);
           }
 
           // Verificar si el gimnasio existe
@@ -52,7 +52,7 @@ export class MiembroService {
           // Si todos los chequeos pasan, creo el registro en la tabla miembro.
           const nuevoMiembro = await this.prisma.membresia.create({
               data: {
-                 usuario_id : usuarioIdInt,
+                 cliente_id : usuarioIdInt,
                  gimnasio_id: gimnasioIdInt,
                  fecha_inicio: createMiembroDto.fecha_inicio,
                  fecha_fin: createMiembroDto.fecha_fin,
@@ -62,7 +62,7 @@ export class MiembroService {
           });
 
           return {
-            message: `El usuario con ID ${usuario_id} fue inscrito exitosamente en el gimnasio con ID ${gimnasio_id}`,
+            message: `El usuario con ID ${cliente_id} fue inscrito exitosamente en el gimnasio con ID ${gimnasio_id}`,
             miembro: nuevoMiembro,
         };
           
@@ -91,7 +91,7 @@ export class MiembroService {
 
       const gimnasios = await this.prisma.membresia.findMany({
         where: {
-          usuario_id: Number(id),  // Filtrar por el ID del usuario
+          cliente_id: Number(id),  // Filtrar por el ID del usuario
         },
         include: {
           gimnasio: true,  // Incluyo los detalles del gimnasio. Hace un JOIN a cada miembro encontrado.
@@ -124,7 +124,7 @@ export class MiembroService {
   
       // Obtener gimnasios a los que el usuario está inscrito
       const gimnasiosInscritos = await this.prisma.membresia.findMany({
-        where: { usuario_id: Number(id) },
+        where: { cliente_id: Number(id) },
         select: { gimnasio_id: true }, // Solo necesito el id del gimnasio
       });
   

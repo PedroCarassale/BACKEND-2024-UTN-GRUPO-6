@@ -3,7 +3,7 @@ import { IsNotEmpty, IsOptional } from "class-validator";
 
 export class CreateMiembroDto {
     @IsNotEmpty()
-    usuario_id: number;  
+    cliente_id: number;  
 
     @IsNotEmpty()
     gimnasio_id: number;  
