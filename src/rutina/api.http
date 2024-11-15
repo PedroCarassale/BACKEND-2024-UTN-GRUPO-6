@@ -10,21 +10,20 @@ GET http://localhost:3000/rutinas/gimnasio/1
 
 
 ### Obtener rutina por id
-GET http://localhost:3000/rutinas/1
+GET http://localhost:3000/rutinas/14
 
 ### Obtener todos los ejercicios de una rutina por id
-GET http://localhost:3000/rutinas/3/ejercicios
+GET http://localhost:3000/rutinas/14/ejercicios
 
 ### Crear una rutina
 POST http://localhost:3000/rutinas
 Content-Type: application/json
 
 {
-  "nombre": "Rutina de Piernas",
+  "nombre": "Rutina de Cara",
   "imagen_url": "https://mlmc4duah9qb.i.optimole.com/cb:xxyw.9a1e/w:702/h:459/q:mauto/f:best/https://atopedegym.com/wp-content/uploads/2015/03/rutina-piernas-1.jpg",
   "descanso_entre_ejercicios": 1,
   "usuario_id": 4,
-  "gimnasio_id":3,
   "ejercicios": [
     {
       "ejercicio_id": 7,

@@ -59,7 +59,7 @@ model ejercicio {
   id              Int               @id @default(autoincrement())
   nombre          String            @db.VarChar(100)
   descripcion     String?           @db.Text
-  imagen_url      String?           @db.VarChar(255)
+  imagen_url      String?           @db.MediumText
   ejerciciorutina ejerciciorutina[]
 }
 
@@ -132,7 +132,7 @@ model rutina {
   id                        Int               @id @default(autoincrement())
   nombre                    String            @db.VarChar(100)
   descanso_entre_ejercicios Int?
-  imagen_url                String?           @db.VarChar(255)
+  imagen_url                String?           @db.MediumText
   gimnasio_id               Int?
   usuario_id                Int
   ejerciciorutina           ejerciciorutina[]
