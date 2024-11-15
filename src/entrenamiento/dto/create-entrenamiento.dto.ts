@@ -1,10 +1,10 @@
-import { IsDate, IsDateString, IsInt, IsNotEmpty } from "class-validator";
+import { IsDate, IsDateString, IsInt, IsNotEmpty, IsString, Matches } from "class-validator";
 
 export class CreateEntrenamientoDto {
 
-    @IsDateString()
-  @IsNotEmpty()
-  fecha: string;
+  @IsString()
+  @Matches(/^\d{2}\/\d{2}\/\d{4}$/, { message: 'La fecha debe tener el formato dd/MM/yyyy' })
+  fecha: string; // Recibimos la fecha como string
 
     @IsInt()
     @IsNotEmpty()

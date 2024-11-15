@@ -24,6 +24,7 @@ Content-Type: application/json
   "imagen_url": "https://mlmc4duah9qb.i.optimole.com/cb:xxyw.9a1e/w:702/h:459/q:mauto/f:best/https://atopedegym.com/wp-content/uploads/2015/03/rutina-piernas-1.jpg",
   "descanso_entre_ejercicios": 1,
   "usuario_id": 4,
+  "gimnasio_id":3,
   "ejercicios": [
     {
       "ejercicio_id": 7,

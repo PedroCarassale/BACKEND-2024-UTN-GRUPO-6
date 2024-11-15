@@ -14,6 +14,8 @@ export class RutinaService {
     const { nombre, imagen_url, descanso_entre_ejercicios, gimnasio_id, usuario_id, ejercicios } = createRutinaDto;
   
     try {
+
+
       // Crea la rutina
       const rutina = await this.prisma.rutina.create({
         data: {
@@ -120,7 +122,6 @@ export class RutinaService {
     try {
       const rutinas = await this.prisma.rutina.findMany({
         where: { usuario_id: id },
-        select: { id: true, nombre: true },
       });
       return rutinas;
     }  catch (error) {
@@ -132,7 +133,6 @@ export class RutinaService {
     try {
       const rutinas = await this.prisma.rutina.findMany({
         where: { gimnasio_id: id },
-        select: { id: true, nombre: true },
       });
       return rutinas;
     } catch (error) {

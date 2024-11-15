@@ -8,16 +8,21 @@ export class EntrenamientoService {
 
   constructor (private readonly prisma:PrismaService){}
 
-  async create(createEntrenamientoDto: CreateEntrenamientoDto) {
+  async create(data: { rutina_id: number; usuario_id: number; fecha: Date }) {
     try {
-      const newEntrenamiento = await this.prisma.entrenamiento.create(
-        {data:{   fecha: new Date(createEntrenamientoDto.fecha), // Asegúrate de convertir la fecha correctamente si es necesario
-          usuario_id: createEntrenamientoDto.usuario_id, 
-          rutina_id: createEntrenamientoDto.rutina_id
-        },});
+      const newEntrenamiento = await this.prisma.entrenamiento.create({
+        data: {
+          fecha: data.fecha, // Fecha ya convertida
+          usuario_id: data.usuario_id,
+          rutina_id: data.rutina_id,
+        },
+      });
+  
       return newEntrenamiento;
     } catch (error) {
-      throw new BadRequestException("Hubo un problema al crear el entrenamiento: "+error.message);
+      throw new BadRequestException(
+        'Hubo un problema al crear el entrenamiento: ' + error.message,
+      );
     }
   }
 
@@ -38,16 +43,54 @@ export class EntrenamientoService {
     }
   }
 
-  async update(id: number, updateEntrenamientoDto: UpdateEntrenamientoDto) {
+  async findEntrenamientosByUsuarioYMes(usuario_id: number, year: number, month: number) {
     try {
-      const entrenamiento = this.prisma.entrenamiento.findFirst({where:{id:id},});
-      if (!entrenamiento) { throw new BadRequestException ("El entrenamiento no se encuentra el la BD");}
-      const entrenamientoModificado = this.prisma.entrenamiento.update({where:{id:id}, data: updateEntrenamientoDto,});
-      return entrenamientoModificado;
+      // Generar el rango de fechas
+      const inicioMes = new Date(year, month - 1, 1); // Primer día del mes
+      const finMes = new Date(year, month, 1); // Primer día del mes siguiente
+  
+      const entrenamientos = await this.prisma.entrenamiento.findMany({
+        where: {
+          usuario_id: usuario_id,
+          fecha: {
+            gte: inicioMes, // Desde el primer día del mes
+            lt: finMes,     // Hasta el último día del mes
+          },
+        },
+        select: {
+          rutina_id: true,
+          fecha: true,
+        },
+      });
+  
+      return entrenamientos;
     } catch (error) {
-      throw new BadRequestException("Hubo un problema al actualizar los datos en el entrenamiento: "+error.message);
+      throw new BadRequestException(
+        'Error al recuperar entrenamientos del mes: ' + error.message,
+      );
     }
   }
+
+  async update(
+    id: number,
+    data: { rutina_id?: number; usuario_id?: number; fecha?: Date },
+  ) {
+    try {
+      const updatedEntrenamiento = await this.prisma.entrenamiento.update({
+        where: { id },
+        data: {
+          ...data, // Actualiza solo los campos proporcionados
+        },
+      });
+  
+      return updatedEntrenamiento;
+    } catch (error) {
+      throw new BadRequestException(
+        'Hubo un problema al actualizar el entrenamiento: ' + error.message,
+      );
+    }
+  }
+  
 
   async remove(id: number) {
     try {

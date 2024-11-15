@@ -5,11 +5,16 @@ Content-Type: application/json
 {
     "rutina_id": 6,  
     "usuario_id" : 4,
-    "fecha":"2024-11-16T12:00:00Z"
+    "fecha":"16/11/2024"
 }
 
 ### Obtener un entrenamiento de un usuario en particular de una fecha en particular. (Ejemplo: usuario_id=4 and fecha=2024-11-14)
 GET http://localhost:3000/entrenamiento/4/2024-11-14
+
+
+### Obtener los entrenamientos de un usuario en particular en un mes en particular. (Ejemplo: usuario_id=4 and fecha=11-2024)
+GET http://localhost:3000/entrenamiento/4/11/2024
+
 
 ### Modifica un entrenamiento en particular
 PATCH http://localhost:3000/entrenamiento/30
@@ -18,7 +23,7 @@ Content-Type: application/json
 {
     "rutina_id": 7,  
     "usuario_id" : 4,
-    "fecha":"2024-11-13T12:00:00Z"
+    "fecha":"17/11/2024"
 }
 
 

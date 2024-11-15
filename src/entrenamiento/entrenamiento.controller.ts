@@ -8,8 +8,19 @@ export class EntrenamientoController {
   constructor(private readonly entrenamientoService: EntrenamientoService) {}
 
   @Post()
-  async create(@Body() createEntrenamientoDto: CreateEntrenamientoDto) {
-    return await this.entrenamientoService.create(createEntrenamientoDto);
+  async create(
+    @Body() createEntrenamientoDto: { rutina_id: number; usuario_id: number; fecha: string },
+  ) {
+    // Convertir la fecha de "dd/MM/yyyy" a un objeto Date
+    const [day, month, year] = createEntrenamientoDto.fecha.split('/').map(Number);
+    const fechaConvertida = new Date(year, month - 1, day); // Meses en JavaScript son 0-indexed
+  
+    // Pasar los datos procesados al servicio
+    return await this.entrenamientoService.create({
+      rutina_id: createEntrenamientoDto.rutina_id,
+      usuario_id: createEntrenamientoDto.usuario_id,
+      fecha: fechaConvertida,
+    });
   }
 
 
@@ -18,10 +29,39 @@ export class EntrenamientoController {
     return await this.entrenamientoService.findOne(+usuario_id, new Date(fecha));
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateEntrenamientoDto: UpdateEntrenamientoDto) {
-    return await this.entrenamientoService.update(+id, updateEntrenamientoDto);
+  @Get(':usuario_id/:month/:year')
+async findEntrenamientosByMes(
+  @Param('usuario_id') usuario_id: string,
+  @Param('month') month: string,
+  @Param('year') year: string,
+) {
+  return await this.entrenamientoService.findEntrenamientosByUsuarioYMes(
+    +usuario_id, // Convertimos usuario_id a número
+    +year,       // Convertimos el año a número
+    +month       // Convertimos el mes a número
+  );
+}
+
+
+@Patch(':id')
+async update(
+  @Param('id') id: string,
+  @Body() updateEntrenamientoDto: { rutina_id?: number; usuario_id?: number; fecha?: string },
+) {
+  let fechaConvertida: Date | undefined;
+
+  // Convertir la fecha si se proporciona
+  if (updateEntrenamientoDto.fecha) {
+    const [day, month, year] = updateEntrenamientoDto.fecha.split('/').map(Number);
+    fechaConvertida = new Date(year, month - 1, day); // Meses en JavaScript son 0-indexed
   }
+
+  // Pasar los datos procesados al servicio
+  return await this.entrenamientoService.update(+id, {
+    ...updateEntrenamientoDto,
+    fecha: fechaConvertida, // Incluye la fecha convertida si se proporcionó
+  });
+}
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
