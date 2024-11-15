@@ -9,7 +9,7 @@ Content-Type: application/json
 }
 
 ### Obtener un entrenamiento de un usuario en particular de una fecha en particular. (Ejemplo: usuario_id=4 and fecha=2024-11-14)
-GET http://localhost:3000/entrenamiento/4/2024-11-14
+GET http://localhost:3000/entrenamiento/4/2024-11-16
 
 
 ### Obtener los entrenamientos de un usuario en particular en un mes en particular. (Ejemplo: usuario_id=4 and fecha=11-2024)
@@ -28,7 +28,7 @@ Content-Type: application/json
 
 
 ### Elimina un entrenamiento en particular
-DELETE http://localhost:3000/entrenamiento/32
+DELETE http://localhost:3000/entrenamiento/4/17/11/2024
 
 
 ### Recupera todas las rutinas que fueron asignadas en algun entrenamiento de un usuario

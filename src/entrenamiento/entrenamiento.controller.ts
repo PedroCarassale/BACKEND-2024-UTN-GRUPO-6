@@ -63,10 +63,20 @@ async update(
   });
 }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.entrenamientoService.remove(+id);
-  }
+@Delete(':usuario_id/:day/:month/:year')
+async removeByUsuarioFechaDia(
+  @Param('usuario_id') usuario_id: string,
+  @Param('day') day: string,
+  @Param('month') month: string,
+  @Param('year') year: string,
+) {
+  return await this.entrenamientoService.remove(
+    +usuario_id,
+    +year,
+    +month,
+    +day,
+  );
+}
 
   @Get(':id')
   async findRutinas(@Param('id') id: string) {

@@ -26,8 +26,6 @@ export class EntrenamientoService {
     }
   }
 
- 
-
   async findOne(usuario_id: number, fecha: Date) {
     try {
       const entrenamiento = await this.prisma.entrenamiento.findFirst({where: {usuario_id: usuario_id, fecha:fecha},select: {
@@ -90,18 +88,48 @@ export class EntrenamientoService {
       );
     }
   }
-  
 
-  async remove(id: number) {
+  async remove(usuario_id: number, day: number, month: number, year: number) {
     try {
-        const entrenamiento= this.prisma.entrenamiento.findUnique({where: {id:id},})
-        if(!entrenamiento) {
-          throw new BadRequestException("No se encontró ningun entrenamiento con esa id");
-        }
-        await this.prisma.entrenamiento.delete({where: {id:id},});
-        return "Entrenamiento eliminado con exito.";
+      // Verificamos que el mes esté en el rango 1-12
+      if (month < 1 || month > 12) {
+        throw new BadRequestException("El mes debe estar entre 1 y 12.");
+      }
+  
+      // Ajustamos las fechas para que estén correctamente formateadas
+      const inicioDia = new Date(year, month - 1, day, 0, 0, 0);  // Primero convertimos el mes (restando 1)
+      const finDia = new Date(year, month - 1, day, 23, 59, 59);  // Ajustamos el final del día
+  
+      console.log(`Buscando entrenamiento entre: ${inicioDia} y ${finDia}`);
+  
+      // Buscamos el entrenamiento entre las fechas indicadas
+      const entrenamiento = await this.prisma.entrenamiento.findFirst({
+        where: {
+          usuario_id: usuario_id,
+          fecha: {
+            gte: inicioDia,
+            lte: finDia,
+          },
+        },
+      });
+  
+      if (!entrenamiento) {
+        throw new BadRequestException(
+          `No se encontró ningún entrenamiento para el usuario ${usuario_id} en la fecha ${day}/${month}/${year}.`,
+        );
+      }
+  
+      // Eliminamos el entrenamiento encontrado
+      await this.prisma.entrenamiento.delete({
+        where: { id: entrenamiento.id },
+      });
+  
+      return `Entrenamiento eliminado con éxito para el usuario ${usuario_id} en la fecha ${day}/${month}/${year}.`;
     } catch (error) {
-      throw new BadRequestException("Hubo un problema al eliminar: "+error.message);
+      console.error(error); // Para mayor visibilidad en el log
+      throw new BadRequestException(
+        'Hubo un problema al eliminar el entrenamiento: ' + error.message,
+      );
     }
   }
 

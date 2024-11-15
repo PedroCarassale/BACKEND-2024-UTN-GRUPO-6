@@ -20,7 +20,7 @@ POST http://localhost:3000/rutinas
 Content-Type: application/json
 
 {
-  "nombre": "Rutina de Cara",
+  "nombre": "Rutina de Antebrazos",
   "imagen_url": "https://mlmc4duah9qb.i.optimole.com/cb:xxyw.9a1e/w:702/h:459/q:mauto/f:best/https://atopedegym.com/wp-content/uploads/2015/03/rutina-piernas-1.jpg",
   "descanso_entre_ejercicios": 1,
   "usuario_id": 4,
@@ -29,20 +29,20 @@ Content-Type: application/json
       "ejercicio_id": 7,
       "descanso_entre_series": 30,
       "intensidad": "Moderada",
-      "seriesxrepeticiones": "4x10"
+      "series_x_repeticiones": "4x10"
     },
     {
       "ejercicio_id": 5,
       "descanso_entre_series": 45,
       "intensidad": "Moderada",
-      "seriesxrepeticiones": "4x10"
+      "series_x_repeticiones": "4x10"
     }
   ]
 }   
 
 
 ### Eliminar una rutina.
-DELETE http://localhost:3000/rutinas/1
+DELETE http://localhost:3000/rutinas/15
 
 
 ### Actualizar una rutina.
