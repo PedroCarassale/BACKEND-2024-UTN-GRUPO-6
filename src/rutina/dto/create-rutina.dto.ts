@@ -18,6 +18,9 @@ descanso_entre_ejercicios? : number;
 @IsOptional()
 gimnasio_id?: number;
 
+@IsNumber()
+usuario_id: number;
+
 @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateEjercicioRutinaDto)

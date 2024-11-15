@@ -33,11 +33,12 @@ export class AuthService {
         if(!isClaveValid) {
             throw new BadRequestException("Clave invalida");
         }
-        const payload = {correo: usuario.correo}; // payload es un objeto que contiene la información que quieres almacenar en el token.
+        const payload = {usuario_id: usuario.id}; // payload es un objeto que contiene la información que quieres almacenar en el token.
         // Piensa en signAsync como el proceso de "empaquetar" la información y "sellarla" con la clave secreta para hacerla segura.
         const token = await this.jwtService.signAsync(payload); // Acá utilizo el método signAsync de jwtService. Este método toma el payload y lo convierte en un token JWT usando la clave secreta
-        
-        return {token, correo,};
+        const usuario_id= usuario.id;
+
+        return {token, usuario_id,};
 
     }
 }

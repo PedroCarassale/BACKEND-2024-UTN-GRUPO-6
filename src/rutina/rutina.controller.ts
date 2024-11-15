@@ -22,6 +22,16 @@ export class RutinaController {
     return await this.rutinaService.findOne(+id);
   }
 
+  @Get('usuario/:id')
+  async findRutinasDeUsuario(@Param('id') id: string) {
+    return await this.rutinaService.findRutinasDeUsuario(+id);
+  }
+
+  @Get('gimnasio/:id')
+  async findRutinasDeGimnasio(@Param('id') id: string) {
+    return await this.rutinaService.findRutinasDeGimnasio(+id);
+  }
+
   @Get(':id/ejercicios')
   async buscarEjerciciosPorRutina(@Param('id') id: string) {
     return await this.rutinaService.buscarEjerciciosPorRutina(+id);

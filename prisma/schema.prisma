@@ -27,18 +27,20 @@ model gimnasio {
 }
 
 model usuario {
-  id             Int         @id @default(autoincrement())
-  dni            String      @unique(map: "dni") @db.VarChar(8)
-  nombre         String      @db.VarChar(100)
-  apellido       String      @db.VarChar(100)
-  nombre_usuario String      @unique(map: "nombre_usuario") @db.VarChar(100)
-  correo         String      @unique(map: "correo") @db.VarChar(255)
-  clave          String      @map("clave") @db.VarChar(255)
+  id             Int             @id @default(autoincrement())
+  dni            String          @unique(map: "dni") @db.VarChar(8)
+  nombre         String          @db.VarChar(100)
+  apellido       String          @db.VarChar(100)
+  nombre_usuario String          @unique(map: "nombre_usuario") @db.VarChar(100)
+  correo         String          @unique(map: "correo") @db.VarChar(255)
+  clave          String          @map("clave") @db.VarChar(255)
   rol_id         Int?
+  entrenamiento  entrenamiento[]
   gimnasio       gimnasio[]
   membresia      membresia[]
   rese_a         rese_a[]
-  rol            rol?        @relation(fields: [rol_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "usuario_ibfk_1")
+  rutina         rutina[]
+  rol            rol?            @relation(fields: [rol_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "usuario_ibfk_1")
 
   @@index([rol_id], map: "rol_id")
 }
@@ -132,18 +134,24 @@ model rutina {
   descanso_entre_ejercicios Int?
   imagen_url                String?           @db.VarChar(255)
   gimnasio_id               Int?
+  usuario_id                Int
   ejerciciorutina           ejerciciorutina[]
+  entrenamiento             entrenamiento[]
+  usuario                   usuario           @relation(fields: [usuario_id], references: [id], onDelete: Cascade, map: "FK_rutina_usuario")
   gimnasio                  gimnasio?         @relation(fields: [gimnasio_id], references: [id], onDelete: Restrict, onUpdate: Restrict, map: "actividadgimnasio_ibfk_1")
 
   @@index([gimnasio_id], map: "gimnasio_id")
+  @@index([usuario_id], map: "FK_rutina_usuario")
 }
 
 model entrenamiento {
-  id         Int       @id @default(autoincrement())
-  fecha      DateTime? @db.Date
-  usuario_id Int?
-  rutina_id  Int?
+  id         Int      @id @default(autoincrement())
+  fecha      DateTime @db.Date
+  usuario_id Int
+  rutina_id  Int
+  rutina     rutina   @relation(fields: [rutina_id], references: [id], onUpdate: Restrict, map: "FK_entrenamiento_rutina")
+  usuario    usuario  @relation(fields: [usuario_id], references: [id], onUpdate: Restrict, map: "FK_entrenamiento_usuario")
 
-  @@index([rutina_id], map: "rutina_id")
-  @@index([usuario_id], map: "usuario_id")
+  @@index([rutina_id], map: "FK_entrenamiento_rutina")
+  @@index([usuario_id], map: "FK_entrenamiento_usuario")
 }

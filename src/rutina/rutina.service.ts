@@ -11,7 +11,7 @@ export class RutinaService {
   }
 
   async create(createRutinaDto: CreateRutinaDto) {
-    const { nombre, imagen_url, descanso_entre_ejercicios, gimnasio_id, ejercicios } = createRutinaDto;
+    const { nombre, imagen_url, descanso_entre_ejercicios, gimnasio_id, usuario_id, ejercicios } = createRutinaDto;
   
     try {
       // Crea la rutina
@@ -20,6 +20,7 @@ export class RutinaService {
           nombre,
           imagen_url,
           descanso_entre_ejercicios,
+          usuario_id,
           gimnasio_id,
         },
       });
@@ -114,4 +115,30 @@ export class RutinaService {
             throw error;
     }
   }
+
+  async findRutinasDeUsuario (id: number) {
+    try {
+      const rutinas = await this.prisma.rutina.findMany({
+        where: { usuario_id: id },
+        select: { id: true, nombre: true },
+      });
+      return rutinas;
+    }  catch (error) {
+      throw new BadRequestException("Error al consultar las rutinas en la BD: " + error.message);
+    }
+  }
+
+  async findRutinasDeGimnasio(id: number) {
+    try {
+      const rutinas = await this.prisma.rutina.findMany({
+        where: { gimnasio_id: id },
+        select: { id: true, nombre: true },
+      });
+      return rutinas;
+    } catch (error) {
+      throw new BadRequestException("Error al consultar las rutinas en la BD: " + error.message);
+    }
+  }
+  
+
 }

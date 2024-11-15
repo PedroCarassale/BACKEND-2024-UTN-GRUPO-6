@@ -17,12 +17,15 @@ import { EjercicioRutinaService } from './ejercicio_rutina/ejercicio_rutina.serv
 import { RutinaController } from './rutina/rutina.controller';
 import { EjercicioRutinaController } from './ejercicio_rutina/ejercicio_rutina.controller';
 import { AuthModule } from './auth/auth.module';
+import { EntrenamientoModule } from './entrenamiento/entrenamiento.module';
+import { EntrenamientoController } from './entrenamiento/entrenamiento.controller';
+import { EntrenamientoService } from './entrenamiento/entrenamiento.service';
 
 
 @Module({
-  imports: [GimnasioModule,UsuarioModule, MiembroModule, EjercicioModule, RutinaModule, EjercicioRutinaModule, AuthModule],
-  controllers: [GimnasioController, UsuarioController, MiembroController, RutinaController, EjercicioRutinaController],
-  providers: [GimnasioService, UsuarioService, MiembroService,PrismaService, RutinaService, EjercicioRutinaService],
+  imports: [GimnasioModule,UsuarioModule, MiembroModule, EjercicioModule, RutinaModule, EjercicioRutinaModule, AuthModule, EntrenamientoModule],
+  controllers: [GimnasioController, UsuarioController, MiembroController, RutinaController, EjercicioRutinaController, EntrenamientoController],
+  providers: [GimnasioService, UsuarioService, MiembroService,PrismaService, RutinaService, EjercicioRutinaService, EntrenamientoService],
   
 })
 export class AppModule {}
