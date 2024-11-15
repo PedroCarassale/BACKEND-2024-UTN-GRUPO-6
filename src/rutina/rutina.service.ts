@@ -122,6 +122,28 @@ export class RutinaService {
     try {
       const rutinas = await this.prisma.rutina.findMany({
         where: { usuario_id: id },
+        select: {
+          id: true,
+          nombre: true,
+          descanso_entre_ejercicios: true,
+          imagen_url: true,
+          ejerciciorutina: {
+            select: {
+              id: true,
+              descanso_entre_series: true,
+              intensidad: true,
+              series_x_repeticiones: true,
+              ejercicio: {
+                select: {
+                  id: true,
+                  nombre: true,
+                  descripcion: true,
+                  imagen_url: true,
+                },
+              },
+            },
+          },
+        },
       });
       return rutinas;
     }  catch (error) {
@@ -133,6 +155,28 @@ export class RutinaService {
     try {
       const rutinas = await this.prisma.rutina.findMany({
         where: { gimnasio_id: id },
+        select: {
+          id: true,
+          nombre: true,
+          descanso_entre_ejercicios: true,
+          imagen_url: true,
+          ejerciciorutina: {
+            select: {
+              id: true,
+              descanso_entre_series: true,
+              intensidad: true,
+              series_x_repeticiones: true,
+              ejercicio: {
+                select: {
+                  id: true,
+                  nombre: true,
+                  descripcion: true,
+                  imagen_url: true,
+                },
+              },
+            },
+          },
+        },
       });
       return rutinas;
     } catch (error) {
